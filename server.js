@@ -1,8 +1,8 @@
 const express = require('express');
+const PORT = process.env.PORT || 3001;
 const app = express();
 //require the data for route creation for front-end data request
 const  { animals } = require('./data/animals');
-const PORT = process.env.PORT || 3001;
 
 //filter by query parameter
 function filterByQuery(query, animalsArray){
@@ -42,7 +42,13 @@ function filterByQuery(query, animalsArray){
     }
     return filteredResults;
 }
-//add the route
+
+function findById(id, animalsArray) {
+  const result = animalsArray.filter(animal => animal.id === id)[0];
+  return result;
+}
+
+//add the route to get animal results
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if(req.query){
@@ -51,6 +57,16 @@ app.get('/api/animals', (req, res) => {
     res.json(results);
 });
 
+//add the route to search by animal
+app.get('/api/animals/:id', (req, res) => {
+  const result = findById(req.params.id, animals);
+  if (result) {
+    res.json(result);
+  } else {
+    res.send(404);
+  }
+});
+
 app.listen(PORT, () => {
-    console.log(`API server now on port {PORT}!`);
+  console.log(`API server now on port ${PORT}!`);
 });
