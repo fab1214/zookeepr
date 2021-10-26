@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3009;
 const app = express();
-//parse incoming POST data and convert to key/value pair; 
+//middleware => parse incoming POST data and convert to key/value pair; 
 //extended:true says to look as deep as possible for nested sub-arrays
 app.use(express.urlencoded({ extended: true}));
 //parse incoming JSON data
