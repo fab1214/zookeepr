@@ -146,6 +146,16 @@
         "calm"
       ],
       "id": "14"
+    },
+    {
+      "name": "Gloria",
+      "species": "Hippopotamus",
+      "diet": "omnivore",
+      "personalityTraits": [
+        "hungry",
+        "anxious"
+      ],
+      "id": "15"
     }
   ]
 }

@@ -3,6 +3,8 @@ const path = require('path');
 const express = require('express');
 const PORT = process.env.PORT || 3009;
 const app = express();
+//provide file path to 'public' folder to allow access to css and js files
+app.use(express.static('public'));
 //middleware => parse incoming POST data and convert to key/value pair; 
 //extended:true says to look as deep as possible for nested sub-arrays
 app.use(express.urlencoded({ extended: true}));
@@ -127,6 +129,28 @@ function validateAnimal(animal) {
   //if any of these are strings, return true and submit info
   return true;
 }
+
+//create route to display index.HTML page in the browser
+app.get('/', (req, res) => {
+  //locate file we want to send to the server to display
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+//create route to display animals.HTML page in the browser
+app.get('/animals', (req, res) => {
+  //locate file we want to send to the server to display
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+//create route to display zookeepers.HTML page in the browser
+app.get('/zookeepers', (req, res) => {
+  //locate file we want to send to the server to display
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+//create wikdcard route to catch requests for non-existant pages
+app.get('*', (req, res) => {
+  //locate file we want to send to the server to display
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
 });
